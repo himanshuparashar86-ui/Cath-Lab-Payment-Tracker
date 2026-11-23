@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123d50"><title>Cath Lab Payment Tracker</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123d50"><link rel="manifest" href="./manifest.json"><title>Cath Lab Payment Tracker</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f4f7f9;color:#18313d;font:15px system-ui}header{background:linear-gradient(120deg,#123d50,#167d83);color:white;padding:22px}header h1{margin:0}header p{margin:6px 0 0;color:#d8ebed}main{max-width:1000px;margin:auto;padding:14px 12px 80px}.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:14px}.tab,.btn{border:0;border-radius:10px;padding:10px 13px;font-weight:700;cursor:pointer;white-space:nowrap}.tab{background:white;color:#567;border:1px solid #dfe8ed}.tab.active,.btn{background:#123d50;color:white}.btn.secondary{background:#eaf1f4;color:#123d50}.btn.danger{background:#fff0f0;color:#a44}section{display:none}section.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card,.panel{background:white;border:1px solid #e0e8ec;border-radius:15px;padding:15px;margin-bottom:12px}.card small{color:#71818b}.card strong{display:block;font-size:22px;margin-top:5px}.row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.panel h3{margin:0 0 10px}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.toolbar>*{flex:1;min-width:130px}input,select,textarea{width:100%;border:1px solid #d7e2e7;border-radius:9px;padding:10px;font:inherit}label{font-size:13px;font-weight:650;display:block;margin-bottom:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px}th,td{padding:10px;border-bottom:1px solid #e4eaee;text-align:left;font-size:13px}th{color:#6e7d87;background:#f9fbfc}.action{border:0;background:none;color:#167d83;font-weight:bold;cursor:pointer}.delete{color:#b44}.listrow{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #e6edf0}.muted{color:#71818b}.empty{text-align:center;padding:18px;color:#71818b}.modal{display:none;position:fixed;inset:0;background:#123d5088;z-index:5;align-items:center;justify-content:center;padding:12px}.modal.show{display:flex}.box{background:white;padding:18px;border-radius:16px;width:100%;max-width:600px;max-height:92vh;overflow:auto}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}@media(max-width:700px){.cards{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.full{grid-column:auto}}
 </style></head><body><header><h1>Cath Lab Payment Tracker</h1><p>Personal receipts, pending dues & monthly reconciliation</p></header><main>
@@ -67,4 +67,12 @@ $('receiptphoto').onchange=async e=>{const file=e.target.files?.[0];if(!file)ret
 alert(msg);let pre={date:parsed.date,mode:parsed.mode,txid:parsed.txid};if(parsed.amount!==null)pre.amount=parsed.amount;addTx(pre);}catch(err){alert('Receipt scan failed: '+err.message)}finally{$('scanreceipt').disabled=false;$('scanreceipt').textContent='📷 Scan receipt photo';e.target.value=''}};
 
 render();
-</script></body></html>
+</script><script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', {scope: './'})
+      .catch(err => console.warn('Service worker registration failed:', err));
+  });
+}
+</script>
+</body></html>
